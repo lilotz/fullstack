@@ -27,6 +27,13 @@ const SumOfClicks = ({sumGood, sumNeutral, sumBad}) => {
   const total = sumGood+sumNeutral+sumBad
   const avg = ((1*sumGood + (-1)*sumBad)/total)
   const percentage = (sumGood/total)*100
+  if (total == 0) {
+    return (
+      <div>
+        No feedback was given
+      </div>
+    )
+  }
 
   return (
     <div>
