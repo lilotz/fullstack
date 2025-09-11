@@ -24,17 +24,11 @@ const Button = (props) => {
 }
 
 const StatisticsLine = (props) => {
-  if (props.name == 'positive') {
-    return (
-      <div>
-      {props.name} {props.value} %
-      </div>
-    )
-  }
   return (
-    <div>
-      {props.name} {props.value}
-    </div>
+      <tr>
+        <td>{props.name}</td>
+        <td>{props.value}</td>
+      </tr>
   )
 }
 
@@ -51,14 +45,16 @@ const SumOfClicks = ({sumGood, sumNeutral, sumBad}) => {
   }
 
   return (
-    <div>
-    <StatisticsLine name='good' value={sumGood} />
-    <StatisticsLine name ='neutral' value ={sumNeutral} />
-    <StatisticsLine name ='bad' value ={sumBad} />
-    <StatisticsLine name ='all' value ={total} />
-    <StatisticsLine name ='average' value ={avg} />
-    <StatisticsLine name ='positive' value ={percentage} />
-    </div>
+      <table>
+        <tbody>
+          <StatisticsLine name='good' value={sumGood} />
+          <StatisticsLine name ='neutral' value ={sumNeutral} />
+          <StatisticsLine name ='bad' value ={sumBad} />
+          <StatisticsLine name ='all' value ={total} />
+          <StatisticsLine name ='average' value ={avg} />
+          <StatisticsLine name ='positive' value ={`${percentage} %`} />
+        </tbody>
+      </table>
   )
 }
 
