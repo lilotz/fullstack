@@ -24,11 +24,18 @@ const Button = (props) => {
 }
 
 const SumOfClicks = ({sumGood, sumNeutral, sumBad}) => {
+  const total = sumGood+sumNeutral+sumBad
+  const avg = ((1*sumGood + (-1)*sumBad)/total)
+  const percentage = (sumGood/total)*100
+
   return (
     <div>
     <p>good {sumGood}</p>
     <p>neutral {sumNeutral}</p>
     <p>bad {sumBad}</p>
+    <p>all {total}</p>
+    <p>average {avg}</p>
+    <p>positive {percentage}%</p>
     </div>
   )
 }
