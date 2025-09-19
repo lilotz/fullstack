@@ -1,17 +1,4 @@
-const Course = ({course}) => {
-    const sum = 0
-    const exercises = course.parts.map (part => part.exercises)
-    const total = exercises.reduce((acc, cur) => acc + cur, sum)
-    return(
-        <div>
-            <h1> {course.name} </h1>
-            {course.parts.map (part =>
-                <p> {part.name} {part.exercises}</p>
-            )}
-            <p>total of {total} exercises</p>
-        </div>
-    )
-}
+import Course from './Course'
 
 const App = () => {
   const courses = [
@@ -62,7 +49,7 @@ const App = () => {
   return (
     <div>
         {courses.map(course =>
-        <Course course={course} />)}
+        <Course key = {course.id} course={course} />)}
     </div>
     )    
 }
