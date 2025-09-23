@@ -1,4 +1,3 @@
-import axios from 'axios'
 import personService from '../services/persons'
 
 const PersonForm = ({ persons, newName, newNumber, setNewName, setNewNumber, setPersons }) => {
@@ -13,14 +12,13 @@ const PersonForm = ({ persons, newName, newNumber, setNewName, setNewNumber, set
             alert(`${newName} is already added to phonebook`)
         }
         else {
-            setPersons(persons.concat(nameObject))
-        }
 
-        personService
-            .create(nameObject)
-            .then(returnedPerson => {
-                console.log(returnedPerson)
-            })
+            personService
+                .create(nameObject)
+                .then(returnedPerson => {
+                    setPersons(persons.concat(returnedPerson))
+                })
+        }
 
         setNewName('')
         setNewNumber('')
