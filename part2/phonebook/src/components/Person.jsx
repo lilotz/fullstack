@@ -10,7 +10,7 @@ const Person = ({ id, name, number }) => {
 
   return (
     <>
-      {name} {number}
+      {name} {number} &nbsp;
       <button onClick={deletePerson}>delete</button> <br />
     </>
   )
