@@ -1,6 +1,6 @@
 import personService from '../services/persons'
 
-const PersonForm = ({ persons, newName, newNumber, setNewName, setNewNumber, setPersons }) => {
+const PersonForm = ({ persons, newName, newNumber, setNewName, setNewNumber, setPersons, setUpdateMessage }) => {
     const addName = (event) => {
         event.preventDefault()
         const nameObject = {
@@ -9,12 +9,20 @@ const PersonForm = ({ persons, newName, newNumber, setNewName, setNewNumber, set
         }
 
         if (persons.some(person => person.name === nameObject.name)) {
-            if(confirm(`${newName} is already added to the phonebook, replace old number with a new one?`)){
+            if (confirm(`${newName} is already added to the phonebook, replace old number with a new one?`)) {
                 const personToChange = persons.find(person => person.name === newName)
                 const id = personToChange.id
-                
-                personService.
-                    update(id, nameObject)
+
+                personService
+                    .update(id, nameObject)
+
+                setUpdateMessage(
+                    `${nameObject.name} has been updated`
+                )
+
+                setTimeout(() => {
+                    setUpdateMessage(null)
+                }, 5000)
             }
         }
         else {
@@ -23,6 +31,13 @@ const PersonForm = ({ persons, newName, newNumber, setNewName, setNewNumber, set
                 .then(returnedPerson => {
                     setPersons(persons.concat(returnedPerson))
                 })
+
+            setUpdateMessage(
+                `${nameObject.name} has been added`
+            )
+            setTimeout(() => {
+                setUpdateMessage(null)
+            }, 5000)
         }
 
         setNewName('')
