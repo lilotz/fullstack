@@ -1,6 +1,9 @@
+import Weather from './Weather'
+
 const Country = ({ data, country }) => {
     const languages = Object.values(data.languages ?? {})
     const flags = Object.values(data.flags ?? {})
+    const capital = Object.values(data.capital ?? {})
 
     return (
         <div>
@@ -20,6 +23,7 @@ const Country = ({ data, country }) => {
                 )}
             </ul>
             <img src={flags[0]} />
+            <Weather capital={capital}/>
 
         </div>
     )

@@ -57,7 +57,8 @@ const App = () => {
           onChange={handleFilterChange}
         />
       </form>
-      <Countries country={country} countries={countries} data={data} />
+      <Countries country={country} countries={countries} data={data}
+        setCountry={setCountry} />
     </div>
   )
 }

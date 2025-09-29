@@ -1,9 +1,10 @@
 import Country from './Country'
+import ListOfCountries from './ListOfCountries'
 
-const Countries = ({ country, countries, data }) => {
+const Countries = ({ country, countries, data, setCountry }) => {
     if (country) {
-        return(
-            <Country data={data} country={country}/>
+        return (
+            <Country data={data} country={country} />
         )
     }
     else {
@@ -16,7 +17,7 @@ const Countries = ({ country, countries, data }) => {
             return (
                 countries.map(country =>
                     <div key={country}>
-                        {country} <br />
+                        <ListOfCountries country={country} setCountry={setCountry}/>
                     </div>
                 )
             )
