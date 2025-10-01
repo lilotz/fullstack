@@ -28,6 +28,15 @@ app.get('/api/persons', (request, response) => {
     response.json(persons)
 })
 
+app.get('/info', (request, response) => {
+    number = persons.length
+    time = new Date()
+    response.send(`
+        <p>Phonebook has info for ${number} people</p>
+        <p>${time}</p>
+        `)
+})
+
 /*app.post('/api/persons', (request, response) => {
     const body = request.body
 
