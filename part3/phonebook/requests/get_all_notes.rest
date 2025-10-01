@@ -14,6 +14,6 @@ POST http://localhost:3001/api/persons
 content-type: application/json
 
 {
-    "name": "Mary Poppendieck",
+    "name": "Max Pod",
     "number": "39-23-6423122"
 }
