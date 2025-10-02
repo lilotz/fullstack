@@ -20,7 +20,7 @@ const App = () => {
       .then(initialNotes => {
         setPersons(initialNotes)
       })
-  })
+  }, [])
 
   const namesToShow = newFilter === ''
     ? persons
