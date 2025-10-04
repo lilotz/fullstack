@@ -1,11 +1,19 @@
 import personService from '../services/persons'
 
-const PersonForm = ({ persons, newName, newNumber, setNewName, setNewNumber, setPersons, setUpdateMessage }) => {
+const PersonForm = ({ persons, newName, newNumber, setNewName, setNewNumber, setPersons, setUpdateMessage, setErrorMessage }) => {
     const addName = (event) => {
         event.preventDefault()
         const nameObject = {
             name: newName,
             number: newNumber
+        }
+
+        if(newName.length < 2 || newNumber.length < 2) {
+            setErrorMessage('input is too short')
+
+            setTimeout(() => {
+                    setErrorMessage(null)
+                }, 5000)
         }
 
         if (persons.some(person => person.name === nameObject.name)) {
@@ -16,9 +24,7 @@ const PersonForm = ({ persons, newName, newNumber, setNewName, setNewNumber, set
                 personService
                     .update(id, nameObject)
 
-                setUpdateMessage(
-                    `${nameObject.name} has been updated`
-                )
+                setUpdateMessage(`${nameObject.name} has been updated`)
 
                 setTimeout(() => {
                     setUpdateMessage(null)
@@ -32,9 +38,7 @@ const PersonForm = ({ persons, newName, newNumber, setNewName, setNewNumber, set
                     setPersons(persons.concat(returnedPerson))
                 })
 
-            setUpdateMessage(
-                `${nameObject.name} has been added`
-            )
+            setUpdateMessage(`${nameObject.name} has been added`)
             setTimeout(() => {
                 setUpdateMessage(null)
             }, 5000)
