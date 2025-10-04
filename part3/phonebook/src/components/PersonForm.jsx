@@ -8,14 +8,6 @@ const PersonForm = ({ persons, newName, newNumber, setNewName, setNewNumber, set
             number: newNumber
         }
 
-        if(newName.length < 2 || newNumber.length < 2) {
-            setErrorMessage('input is too short')
-
-            setTimeout(() => {
-                    setErrorMessage(null)
-                }, 5000)
-        }
-
         if (persons.some(person => person.name === nameObject.name)) {
             if (confirm(`${newName} is already added to the phonebook, replace old number with a new one?`)) {
                 const personToChange = persons.find(person => person.name === newName)
@@ -23,12 +15,22 @@ const PersonForm = ({ persons, newName, newNumber, setNewName, setNewNumber, set
 
                 personService
                     .update(id, nameObject)
+                    .then(updatedPerson => {
+                        setUpdateMessage(`${updatedPerson.name} has been updated`)
 
-                setUpdateMessage(`${nameObject.name} has been updated`)
+                        setTimeout(() => {
+                            setUpdateMessage(null)
+                        }, 5000)
+                    })
 
-                setTimeout(() => {
-                    setUpdateMessage(null)
-                }, 5000)
+                    .catch(error => {
+                        setErrorMessage(error.response.data.error)
+
+                        setTimeout(() => {
+                            setErrorMessage(null)
+                        }, 5000)
+                        console.log(error.response.data.error)
+                    })
             }
         }
         else {
@@ -36,12 +38,20 @@ const PersonForm = ({ persons, newName, newNumber, setNewName, setNewNumber, set
                 .create(nameObject)
                 .then(returnedPerson => {
                     setPersons(persons.concat(returnedPerson))
-                })
 
-            setUpdateMessage(`${nameObject.name} has been added`)
-            setTimeout(() => {
-                setUpdateMessage(null)
-            }, 5000)
+                    setUpdateMessage(`${returnedPerson}.name} has been added`)
+                    setTimeout(() => {
+                        setUpdateMessage(null)
+                    }, 5000)
+                })
+                .catch(error => {
+                    setErrorMessage(error.response.data.error)
+
+                    setTimeout(() => {
+                        setErrorMessage(null)
+                    }, 5000)
+                    console.log(error.response.data.error)
+                })
         }
 
         setNewName('')

@@ -38,7 +38,7 @@ const App = () => {
         setUpdateMessage={setUpdateMessage} setErrorMessage={setErrorMessage} />
 
       <h2>Numbers</h2>
-      <Persons persons={namesToShow} setErrorMessage={setErrorMessage} />
+      <Persons persons={namesToShow} setUpdateMessage={setUpdateMessage} setErrorMessage={setErrorMessage} />
     </div>
   )
 }
