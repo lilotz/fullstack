@@ -11,10 +11,12 @@ const Weather = ({ capital }) => {
     const [speed, setSpeed] = useState(null)
     const [icon, setIcon] = useState(null)
 
+    const api_key = import.meta.env.VITE_SOME_KEY
+
     useEffect(() => {
         if (capital.length != 0) {
             axios
-                .get(`http://api.openweathermap.org/geo/1.0/direct?q=${capital}&limit=1&appid=271f420961a04c8861c3e8ccd383bd98`)
+                .get(`http://api.openweathermap.org/geo/1.0/direct?q=${capital}&limit=1&appid=${api_key}`)
                 .then(response => {
                     const chosenCity = response.data[0]
                     setCity(chosenCity)
@@ -27,7 +29,7 @@ const Weather = ({ capital }) => {
     useEffect(() => {
         if (lat.length != 0) {
             axios
-                .get(`https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&units=metric&appid=271f420961a04c8861c3e8ccd383bd98`)
+                .get(`https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&units=metric&appid=${api_key}`)
                 .then(response => {
                     setData(response.data)
                 })

@@ -5,8 +5,8 @@ const Person = ({ id, name, number, setUpdateMessage, setErrorMessage }) => {
   const deletePerson = () => {
     if (confirm(`Delete '${name}'?`)) {
       personService.deletePerson(id)
-        .then(deletedPerson => {
-          setUpdateMessage(`${deletedPerson.name} has been updated`)
+        .then(() => {
+          setUpdateMessage(`${name} has been updated`)
 
           setTimeout(() => {
             setUpdateMessage(null)

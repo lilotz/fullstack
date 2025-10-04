@@ -15,8 +15,8 @@ const PersonForm = ({ persons, newName, newNumber, setNewName, setNewNumber, set
 
                 personService
                     .update(id, nameObject)
-                    .then(updatedPerson => {
-                        setUpdateMessage(`${updatedPerson.name} has been updated`)
+                    .then(() => {
+                        setUpdateMessage(`${nameObject.name} has been updated`)
 
                         setTimeout(() => {
                             setUpdateMessage(null)
@@ -39,7 +39,7 @@ const PersonForm = ({ persons, newName, newNumber, setNewName, setNewNumber, set
                 .then(returnedPerson => {
                     setPersons(persons.concat(returnedPerson))
 
-                    setUpdateMessage(`${returnedPerson}.name} has been added`)
+                    setUpdateMessage(`${nameObject.name} has been added`)
                     setTimeout(() => {
                         setUpdateMessage(null)
                     }, 5000)
