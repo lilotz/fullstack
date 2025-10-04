@@ -12,7 +12,7 @@ const Person = ({ id, name, number, setUpdateMessage, setErrorMessage }) => {
             setUpdateMessage(null)
           }, 5000)
         })
-        .catch(error => {
+        .catch(() => {
           setErrorMessage(`Information of ${name} has already been removed from server`)
           setTimeout(() => {
             setErrorMessage(null)
