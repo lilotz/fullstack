@@ -45,7 +45,7 @@ const App = () => {
       setUsername('')
       setPassword('')
     } catch {
-      setErrorMessage("wrong username or password")
+      setErrorMessage('wrong username or password')
 
       setTimeout(() => {
         setErrorMessage(null)
@@ -59,7 +59,7 @@ const App = () => {
     setUser(null)
   }
 
-  const createNewBlog = async (blogObject) => {  
+  const createNewBlog = async (blogObject) => {
     blogFormRef.current.toggleVisibility()
     try {
       const newBlog = await blogService.create(blogObject)
@@ -68,13 +68,13 @@ const App = () => {
       setUpdateMessage(`a new blog "${blogObject.title}" by ${blogObject.author} added`)
     }
     catch {
-      setErrorMessage("title, author or url missing")
+      setErrorMessage('title, author or url missing')
       setTimeout(() => {
         setErrorMessage(null)
       }, 5000)
     }
   }
-  
+
   const blogFormRef = useRef()
 
   const createNewBlogForm = () => {
@@ -94,7 +94,7 @@ const App = () => {
       <div>
         <h2>Blogs</h2>
         {blogs.map(blog =>
-          <Blog key={blog.id} blog={blog} />
+          <Blog key={blog.id} blog={blog} handleLikeChange={handleLike} />
         )}
       </div>
     )
@@ -112,6 +112,11 @@ const App = () => {
         />
       </div>
     )
+  }
+
+  const handleLike = async blogObject => {
+    await blogService.update(blogObject)
+    setBlogs(blogs.map(b => (b.id !== blogObject.id ? b : blogObject)))
   }
 
   return (
