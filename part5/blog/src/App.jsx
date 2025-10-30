@@ -90,14 +90,22 @@ const App = () => {
   }
 
   const blogsForm = () => {
+    blogs.sort((a, b) => b.likes - a.likes)
     return (
       <div>
         <h2>Blogs</h2>
         {blogs.map(blog =>
-          <Blog key={blog.id} blog={blog} handleLikeChange={handleLike} />
+          <Blog key={blog.id} blog={blog}
+            handleLikeChange={handleLike} removeBlog={removeBlog}
+            user={user} />
         )}
       </div>
     )
+  }
+
+  const removeBlog = async blogObject => {
+    await blogService.remove(blogObject)
+    setBlogs(blogs.filter(b => b.id !== blogObject.id))
   }
 
   const loginForm = () => {
