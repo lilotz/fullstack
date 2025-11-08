@@ -66,6 +66,9 @@ const App = () => {
       setBlogs(blogs.concat(newBlog))
 
       setUpdateMessage(`a new blog "${blogObject.title}" by ${blogObject.author} added`)
+      setTimeout(() => {
+        setUpdateMessage(null)
+      }, 5000)
     }
     catch {
       setErrorMessage('title, author or url missing')
@@ -90,17 +93,21 @@ const App = () => {
   }
 
   const blogsForm = () => {
-    blogs.sort((a, b) => b.likes - a.likes)
-    return (
-      <div>
-        <h2>Blogs</h2>
-        {blogs.map(blog =>
-          <Blog key={blog.id} blog={blog}
-            handleLikeChange={handleLike} removeBlog={removeBlog}
-            user={user} />
-        )}
-      </div>
-    )
+    if (blogs.length > 0) {
+      blogs.sort((a, b) => b.likes - a.likes)
+      return (
+        <div>
+          <h2>Blogs</h2>
+          {
+            blogs.map(blog =>
+              <Blog key={blog.id} blog={blog}
+                handleLikeChange={handleLike} removeBlog={removeBlog}
+                user={user} />
+            )
+          }
+        </div >
+      )
+    }
   }
 
   const removeBlog = async blogObject => {

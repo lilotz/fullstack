@@ -18,6 +18,7 @@ const NewBlogForm = ({
     setTitle('')
     setAuthor('')
     setURL('')
+
   }
 
   return (
