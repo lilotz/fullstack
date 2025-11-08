@@ -94,12 +94,12 @@ const App = () => {
 
   const blogsForm = () => {
     if (blogs.length > 0) {
-      blogs.sort((a, b) => b.likes - a.likes)
+      const sortedBlogs = [...blogs].sort((a, b) => b.likes - a.likes)
       return (
         <div>
           <h2>Blogs</h2>
           {
-            blogs.map(blog =>
+            sortedBlogs.map(blog =>
               <Blog key={blog.id} blog={blog}
                 handleLikeChange={handleLike} removeBlog={removeBlog}
                 user={user} />
