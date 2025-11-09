@@ -44,7 +44,7 @@ describe('Blog app', () => {
   })
 
   describe('when logged in', () => {
-    beforeEach(async ({ page, request }) => {
+    beforeEach(async ({ page }) => {
       await loginWith(page, 'testuser', 'apple')
     })
 
@@ -87,12 +87,38 @@ describe('Blog app', () => {
     test('a wrong user cannot delete a blog', async ({ page }) => {
       await createNewBlogWith(page, 'Test Blog 4', 'Test Writer', 'testurl.com')
       await page.getByRole('button', { name: 'logout' }).click()
-      
+
       await loginWith(page, 'wronguser', 'watermelon')
       await page.getByRole('button', { name: 'view' }).click()
 
       const blogDiv = page.locator('.blog').last()
       await expect(blogDiv).toContainText('Test Blog 4 Test Writer hidetesturl.comlikes 0 like')
+    })
+  })
+
+  describe('when there are more blogs', () => {
+    beforeEach(async ({ page }) => {
+      await loginWith(page, 'testuser', 'apple')
+      await createNewBlogWith(page, 'Test Blog 1', 'Test Writer', 'testurl.com')
+      await createNewBlogWith(page, 'Test Blog 2', 'Test Writer', 'testurl.com')
+     
+      const blog1 = page.getByText('Test Blog 1')
+      const blog1Element = blog1.locator('..')
+      const blog2 = page.getByText('Test Blog 2')
+      const blog2Element = blog2.locator('..')
+
+      await blog1Element.getByRole('button', { name: 'view' }).click()
+      await blog2Element.getByRole('button', { name: 'view' }).click()
+    })
+
+    test('blogs are in the right order', async ({ page }) => {
+      await page.getByRole('button', { name: 'like' }).first().click()
+      await page.getByRole('button', { name: 'like' }).nth(1).click()
+      await page.getByRole('button', { name: 'like' }).nth(1).click()
+      await page.getByRole('button', { name: 'like' }).nth(1).click()
+
+      const newFirstBlog = page.locator('.blog').first()
+      await expect(newFirstBlog).toContainText('Test Blog 2')
     })
   })
 })
