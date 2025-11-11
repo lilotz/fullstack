@@ -1,3 +1,5 @@
+import { useSelector } from 'react-redux'
+
 const Notification = () => {
   const style = {
     border: 'solid',
@@ -6,7 +8,14 @@ const Notification = () => {
     marginBottom: 10
   }
 
-  return <div style={style}>render here notification...</div>
+  const notification = useSelector(state => state.notification)
+
+  const showWhenVisible = { display: notification === '' ? 'none' : '' }
+
+  return (
+    <div style={showWhenVisible}>
+      <div style={style}>{notification}</div>
+    </div>)
 }
 
 export default Notification
