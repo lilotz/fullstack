@@ -1,7 +1,6 @@
 const baseUrl = 'http://localhost:3001/anecdotes'
 
 export const getAnecdotes = async () => {
-  console.log('get')
   const response = await
     fetch(baseUrl)
   if (!response.ok) {
